@@ -5,12 +5,6 @@ import time
 import logging
 from Helpers.Device import Device
 
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(lineno)d - %(levelname)s - %(message)s',
-    datefmt='%Y-%m-%d %I:%M:%S %p',
-    level=logging.DEBUG,
-)
-
 def hook_function(dynamic_function_name, cdm_version, module_names):
     device = Device(dynamic_function_name, cdm_version, module_names)
     for process in device.usb_device.enumerate_processes():
@@ -44,6 +38,12 @@ def main():
 
 
 if __name__ == '__main__':
+    logging.basicConfig(
+        format='%(asctime)s - %(name)s - %(lineno)d - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %I:%M:%S %p',
+        level=logging.DEBUG,
+    )
+    
     device = main()
     while not device.dumped:
         time.sleep(1000)
