@@ -32,7 +32,7 @@ def main():
     logger = logging.getLogger("main")
     logger.info('Connecting to %s and hooking functions...', device.name)
     
-    device = hook(dynamic_function_name, cdm_version, module_names)
+    device = hook_function(dynamic_function_name, cdm_version, module_names)
     logger.info('Functions hooked, now open the DRM stream test on Bitmovin from your Android device! https://bitmovin.com/demos/drm')
     return device
 
