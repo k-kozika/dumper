@@ -13,6 +13,7 @@ class Device:
         self.widevine_libraries = module_names
         self.usb_device = frida.get_usb_device()
         self.name = self.usb_device.name
+        self.dumped = False
 
         with open('./Helpers/script.js', 'r', encoding="utf_8") as script:
             self.frida_script = script.read()
@@ -36,6 +37,7 @@ class Device:
 
         with open(os.path.join(save_dir, 'private_key.pem'), 'wb+') as writer:
             writer.write(key.exportKey('PEM'))
+        self.dumped = True
         self.logger.info('Key pairs saved at %s', save_dir)
 
     def on_message(self, msg, data):
