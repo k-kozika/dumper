@@ -9,7 +9,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         "frida",
-        "protobuf == 3.19.3",
+        "protobuf",
         "pycryptodome"
     ],
 )
