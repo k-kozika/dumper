@@ -5,7 +5,7 @@ import time
 import logging
 from Helpers.Device import Device
 
-def hook_function(dynamic_function_name, cdm_version, module_names):
+def hook_function(cdm_version='14.0.0', dynamic_function_name='', module_names=["libwvaidl.so", "libwvhidl.so"]):
     device = Device(dynamic_function_name, cdm_version, module_names)
     for process in device.usb_device.enumerate_processes():
         if 'drm' in process.name:
