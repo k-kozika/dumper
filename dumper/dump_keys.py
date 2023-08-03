@@ -31,10 +31,10 @@ def main():
     module_names = args.module_name
 
     logger = logging.getLogger("main")
-    logger.info('Connecting to %s and hooking functions...', device.name)
     
     device = hook_function(cdm_version, dynamic_function_name, module_names)
-    logger.info('Functions hooked, now open the DRM stream test on Bitmovin from your Android device! https://bitmovin.com/demos/drm')
+
+    logger.info('Connected to %s and function hooked, now open the DRM stream test on Bitmovin from your Android device! https://bitmovin.com/demos/drm')
     
     while not device.dumped:
         time.sleep(1000)
