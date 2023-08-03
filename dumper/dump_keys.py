@@ -49,7 +49,7 @@ def main():
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
         
-     with open(os.path.join(save_dir, 'client_id.bin'), 'wb+') as writer:
+    with open(os.path.join(save_dir, 'client_id.bin'), 'wb+') as writer:
         writer.write(device.client_id)
 
     with open(os.path.join(save_dir, 'private_key.pem'), 'wb+') as writer:
