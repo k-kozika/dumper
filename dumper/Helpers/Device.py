@@ -21,24 +21,11 @@ class Device:
         self.frida_script = self.frida_script.replace(r'${CDM_VERSION}', cdm_version)
 
     def export_key(self, key, client_id):
-        save_dir = os.path.join(
-            'key_dumps',
-            f'{self.name}',
-            'private_keys',
-            f'{client_id.Token._DeviceCertificate.SystemId}',
-            f'{str(key.n)[:10]}'
-        )
-
-        if not os.path.exists(save_dir):
-            os.makedirs(save_dir)
-
-        with open(os.path.join(save_dir, 'client_id.bin'), 'wb+') as writer:
-            writer.write(client_id.SerializeToString())
-
-        with open(os.path.join(save_dir, 'private_key.pem'), 'wb+') as writer:
-            writer.write(key.exportKey('PEM'))
+        self.client_id = client_id.SerializeToString()
+        self.private_key_pem = key.exportKey('PEM')
+        
         self.dumped = True
-        self.logger.info('Key pairs saved at %s', save_dir)
+        self.logger.info('Key pairs saved')
 
     def on_message(self, msg, data):
         if 'payload' in msg:
