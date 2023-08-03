@@ -21,6 +21,7 @@ class Device:
         self.frida_script = self.frida_script.replace(r'${CDM_VERSION}', cdm_version)
 
     def export_key(self, key, client_id):
+        self.sys_id = client_id.Token._DeviceCertificate.SystemId
         self.client_id = client_id.SerializeToString()
         self.private_key_pem = key.exportKey('PEM')
         
