@@ -37,7 +37,7 @@ def main():
     logger.info('Connected to %s and function hooked, now open the DRM stream test on Bitmovin from your Android device! https://bitmovin.com/demos/drm')
     
     while not device.dumped:
-        time.sleep(1000)
+        pass
     
     save_dir = os.path.join(
         'key_dumps',
