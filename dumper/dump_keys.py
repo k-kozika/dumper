@@ -2,7 +2,6 @@
 
 import argparse
 import os
-import time
 import logging
 from Helpers.Device import Device
 
