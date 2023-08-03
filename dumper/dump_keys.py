@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import os
 import time
 import logging
 from Helpers.Device import Device
@@ -32,9 +33,28 @@ def main():
     logger = logging.getLogger("main")
     logger.info('Connecting to %s and hooking functions...', device.name)
     
-    device = hook_function(dynamic_function_name, cdm_version, module_names)
+    device = hook_function(cdm_version, dynamic_function_name, module_names)
     logger.info('Functions hooked, now open the DRM stream test on Bitmovin from your Android device! https://bitmovin.com/demos/drm')
-    return device
+    
+    while not device.dumped:
+        time.sleep(1000)
+    
+    save_dir = os.path.join(
+        'key_dumps',
+        f'{device.name}',
+        'private_keys',
+        f'{device.sys_id}',
+    )
+
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
+        
+     with open(os.path.join(save_dir, 'client_id.bin'), 'wb+') as writer:
+        writer.write(device.client_id)
+
+    with open(os.path.join(save_dir, 'private_key.pem'), 'wb+') as writer:
+        writer.write(device.private_key_pem)
+
 
 
 if __name__ == '__main__':
@@ -44,6 +64,4 @@ if __name__ == '__main__':
         level=logging.DEBUG,
     )
     
-    device = main()
-    while not device.dumped:
-        time.sleep(1000)
+    main()
